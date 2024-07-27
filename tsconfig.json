@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "NodeNext",
+        "allowJs": true,
+        "declaration": true,
+        "sourceMap": true,
+        "rootDirs": [
+            "src",
+            "tests"
+        ],
+        "outDir": "dist",
+        "moduleResolution": "NodeNext",
+        "emitDeclarationOnly": false,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "noUnusedParameters": true,
+        "skipLibCheck": true,
+        "pretty": true,
+        "lib": [
+            "ES2020"
+        ]
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+    ]
+}

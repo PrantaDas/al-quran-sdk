@@ -126,3 +126,45 @@ export interface AudioApi {
     getAyahRecitationForSpecificHizb(recitation_id: number, hizb_number: number): Promise<IAyahRecitationSpecificHizb | Error | AxiosError>;
     getAyahRecitationForSpecificAyah(recitation_id: number, ayah_key: string): Promise<IAyahRecitationSpecificAyah | Error | AxiosError>;
 };
+
+export interface ChapterTranslate {
+    language_name: string;
+    name: string;
+};
+
+
+export interface Chapter {
+    id: number;
+    revelation_place: string;
+    revelation_order: number;
+    bismillah_pre: boolean;
+    name_simple: string;
+    name_complex: string;
+    name_arabic: string;
+    verses_count: number;
+    pages: number[];
+    translated_name: ChapterTranslate;
+};
+
+export interface ListChapters {
+    chapters?: Chapter[];
+};
+
+export interface ChapterInfo {
+    id: number;
+    chapter_id: number;
+    language_name: string;
+    short_text: string;
+    source: string;
+    text: string;
+};
+
+export interface ChapterInfoResponse {
+    chapter_info?: ChapterInfo;
+};
+
+export interface ChapterApi {
+    listChapters: (language?: string) => Promise<ListChapters | Error | AxiosError>;
+    getChapter: (id: number, language?: string) => Promise<Chapter | Error | AxiosError>;
+    getChapterInfo: (chapter_id: number, language?: string) => Promise<ChapterInfo | Error | AxiosError>;
+};

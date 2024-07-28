@@ -27,6 +27,9 @@ const Api = (
         },
         httpsAgent: keepAliveAgent,
         maxBodyLength: Infinity,
+        validateStatus: (status) => {
+            return status >= 200 && status < 500;
+        }
     });
 
     axiosInstance.interceptors.request.use((config) => {

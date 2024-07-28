@@ -168,3 +168,13 @@ export interface ChapterApi {
     getChapter: (id: number, language?: string) => Promise<Chapter | Error | AxiosError>;
     getChapterInfo: (chapter_id: number, language?: string) => Promise<ChapterInfo | Error | AxiosError>;
 };
+
+
+export interface JuzResponse {
+    juzs: any[];
+};
+
+
+export interface JuzApi {
+    getAllJuzs: () => Promise<JuzResponse | Error | AxiosError>;
+};

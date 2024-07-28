@@ -178,3 +178,101 @@ export interface JuzResponse {
 export interface JuzApi {
     getAllJuzs: () => Promise<JuzResponse | Error | AxiosError>;
 };
+
+export interface RecitaionInfo {
+    info: Info;
+}
+
+export interface Info {
+    id: number;
+    info: any;
+};
+
+
+export interface TranslationInfo {
+    info: Info;
+};
+
+export interface Root {
+    translations: Translation[];
+};
+
+export interface Translation {
+    id: number;
+    name: string;
+    author_name: string;
+    slug: string;
+    language_name: string;
+    translated_name: TranslatedName;
+};
+
+export interface TranslationResponse {
+    translations: Translation[];
+};
+
+export interface TafsirsResponse {
+    tafsirs: Translation[];
+};
+
+export interface TafsirInfoResponse {
+    id: number;
+    info: string | null;
+};
+
+export interface RecitationStyle {
+    mujawwad: string;
+    murattal: string;
+    muallim: string;
+};
+
+export interface RecitationStyleResponse {
+    recitation_styles: RecitationStyle[];
+};
+
+export interface Languages {
+    id: number;
+    name: string;
+    iso_code: string;
+    native_name: string;
+    direction: string;
+    translations_count: number;
+    translated_name: TranslatedName;
+};
+
+export interface LanguageResponse {
+    languagess: Languages[];
+};
+
+export interface TranslatedName {
+    name: string;
+    language_name: string;
+};
+
+export interface ChapterInfos {
+    chapter_infos: Translation[];
+};
+
+export interface VerseMedia {
+    id: number;
+    name: string;
+    author_name: string;
+    slug: string;
+    language_name: string;
+    translated_name: TranslatedName;
+};
+
+export interface VerseMediaResponse {
+    verse_media: VerseMedia[];
+};
+
+export interface ResourceApi {
+    getRecitationInfo: (recitation_id: string) => Promise<RecitaionInfo | Error | AxiosError>;
+    getTranslationInfo: (translation_id: string) => Promise<TranslationInfo | Error | AxiosError>;
+    getTranslations: (language?: string) => Promise<TranslationResponse | Error | AxiosError>;
+    getTafsirs: (language?: string) => Promise<TafsirsResponse | Error | AxiosError>;
+    getTafsirInfo: (tafsir_id: string) => Promise<TafsirInfoResponse | Error | AxiosError>;
+    getRecitationStyles: () => Promise<RecitationStyleResponse | Error | AxiosError>;
+    getLanguages: () => Promise<LanguageResponse | Error | AxiosError>;
+    getChapterInfos: () => Promise<ChapterInfos | Error | AxiosError>;
+    getVerseMedias: () => Promise<VerseMediaResponse | Error | AxiosError>;
+};

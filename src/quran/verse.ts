@@ -51,4 +51,24 @@ const verse: VerseApi = {
         .catch(handleError(reject));
     });
   },
+  getSpecificVerseByVerseKey(verse_key: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error> {
+    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new Error('Provided query language is not allowed');
+    const uri = query ? `/verses/by_key/${verse_key}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_key/${verse_key}`;
+    return new Promise((resolve, reject) => {
+      api.get(uri)
+        .then(handleResponse(resolve))
+        .catch(handleError(reject));
+    });
+  },
+  getRandomAyah(query?: VerseQuery): Promise<VerseResponse | AxiosError | Error> {
+    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new Error('Provided query language is not allowed');
+    const uri = query ? `/verses/random?${new URLSearchParams(query as URLSearchParams)}` : `/verses/random`;
+    return new Promise((resolve, reject) => {
+      api.get(uri)
+        .then(handleResponse(resolve))
+        .catch(handleError(reject));
+    });
+  },
 };
+
+export default verse;

@@ -1,12 +1,11 @@
 import { AxiosError } from "axios";
 import url from "url";
 import Api from "../api";
-import { AudioApi, AudioQueryParams, IAudio, IListOfAllAudioOfAReciter, IRecitation, ISingleRecitation, IReciters, IAyahRecitationSpecificSurah, IAyahRecitationSpecificJuz, IAyahRecitationSpecificMadaniMushafPage, IAyahRecitationSpecificRubelHizb, IAyahRecitationSpecificHizb, IAyahRecitationSpecificAyah } from "../types";
+import { AudioApi, AudioQueryParams, IAudio, IListOfAllAudioOfAReciter, IRecitation, ISingleRecitation, IReciters, IAyahRecitationSpecificSurah, IAyahRecitationSpecificJuz, IAyahRecitationSpecificMadaniMushafPage, IAyahRecitationSpecificRubelHizb, IAyahRecitationSpecificHizb, IAyahRecitationSpecificAyah, ALLOWED_LANGUAGES } from "../types";
 import { handleError, handleResponse } from "../utils";
 
 const api = Api();
 
-const ALLOWED_LANGUAGES = new Set(['en', 'ur', 'bn', 'tr', 'es', 'fr', 'bs', 'ru', 'ml', 'id', 'uz', 'nl', 'de', 'tg', 'ta', 'ja', 'it', 'vi', 'zh', 'sq', 'fa', 'bg', 'bm', 'ha', 'pt', 'ro', 'hi', 'sw', 'kk', 'th', 'tl', 'km', 'as', 'ko', 'so', 'az', 'ku', 'dv', 'ms', 'prs', 'zgh', 'am', 'ce', 'cs', 'fi', 'gu', 'he', 'ka', 'kn', 'ks', 'lg', 'mk', 'mr', 'mrn', 'ne', 'no', 'om', 'pl', 'ps', 'rw', 'sd', 'se', 'si', 'sr', 'sv', 'te', 'tt', 'ug', 'uk', 'sq', 'yo']);
 
 const audio: AudioApi = {
 

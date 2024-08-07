@@ -1,4 +1,4 @@
-import juz from "./juz";
+import { juz } from "./juz";
 
 describe("Fetch all the juzs", () => {
     beforeEach(() => jest.clearAllMocks());

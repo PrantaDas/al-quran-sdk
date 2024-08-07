@@ -6,7 +6,7 @@ import { handleError, handleResponse } from "../utils";
 const api = Api();
 
 
-const resources: ResourceApi = {
+export const resources: ResourceApi = {
     getRecitationInfo(recitation_id: string): Promise<RecitaionInfo | Error | AxiosError> {
         if (!recitation_id) return Promise.reject(new Error('Recitation ID is required'));
         return new Promise((resolve, reject) => {
@@ -78,5 +78,3 @@ const resources: ResourceApi = {
         });
     }
 };
-
-export default resources;

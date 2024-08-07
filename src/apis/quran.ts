@@ -14,7 +14,7 @@ import { handleError, handleResponse } from "../utils";
 
 const api = Api();
 
-const quran: QuranApi = {
+export const quran: QuranApi = {
   getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse | AxiosError | Error> {
     const uri = query ? `/quran/verses/code_v1?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v1';
     return new Promise((resolve, reject) => {
@@ -88,5 +88,3 @@ const quran: QuranApi = {
     });
   },
 };
-
-export default quran;

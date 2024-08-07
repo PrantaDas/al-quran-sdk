@@ -1,4 +1,4 @@
-import quran from "./quran";
+import { quran } from "./quran";
 
 describe("Testing the Quran APIs", () => {
 

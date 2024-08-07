@@ -1,5 +1,4 @@
-import audio from "./audio";
-
+import { audio } from "./audio";
 
 describe("Fetch Chapters Audio of a Reciter", () => {
 

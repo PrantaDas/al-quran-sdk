@@ -5,7 +5,7 @@ import { handleError, handleResponse } from "../utils";
 
 const api = Api();
 
-const juz: JuzApi = {
+export const juz: JuzApi = {
     getAllJuzs(): Promise<JuzResponse | Error | AxiosError> {
         return new Promise((resolve, reject) => {
             api.get('/juzs')
@@ -14,5 +14,3 @@ const juz: JuzApi = {
         });
     },
 };
-
-export default juz;

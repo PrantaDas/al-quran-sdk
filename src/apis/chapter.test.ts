@@ -1,5 +1,5 @@
 import { ListChapters } from "../types";
-import chapter from "./chapter";
+import { chapter } from "./chapter";
 
 describe("Fetch all the chapter according to language", () => {
     beforeEach(() => jest.clearAllMocks());

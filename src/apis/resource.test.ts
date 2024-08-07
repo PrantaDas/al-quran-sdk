@@ -1,4 +1,4 @@
-import resources from "./resource";
+import { resources } from "./resource";
 
 describe("Fetching the recitation by id", () => {
 	beforeEach(() => jest.clearAllMocks());

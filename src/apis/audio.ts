@@ -13,7 +13,7 @@ import { handleError, handleResponse } from "../utils";
 const api = Api();
 
 
-const audio: AudioApi = {
+export const audio: AudioApi = {
 
     getChaptersAudioOfAReciter(id: number, chapter_number: number): Promise<IAudio | Error | AxiosError> {
         if (!id || !chapter_number)
@@ -133,4 +133,3 @@ const audio: AudioApi = {
 
 };
 
-export default audio;

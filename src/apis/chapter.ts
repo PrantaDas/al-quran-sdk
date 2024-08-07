@@ -6,7 +6,7 @@ import { handleError, handleResponse } from "../utils";
 const api = Api();
 
 
-const chapter: ChapterApi = {
+export const chapter: ChapterApi = {
     listChapters(language = 'en'): Promise<ListChapters | Error | AxiosError> {
         const isLanguageSupported = language && ALLOWED_LANGUAGES.has(language);
         if (!isLanguageSupported) return Promise.reject(new Error("Provided language is not supported"));
@@ -34,4 +34,3 @@ const chapter: ChapterApi = {
     }
 };
 
-export default chapter;

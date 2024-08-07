@@ -5,7 +5,7 @@ import { handleError, handleResponse } from "../utils";
 
 const api = Api();
 
-const verse: VerseApi = {
+export const verse: VerseApi = {
   getVerseByChapter(chapter_number: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error> {
     if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new Error('Provided query language is not allowed');
     const uri = query ? `/verses/by_chapter/${chapter_number}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_chapter/${chapter_number}`;
@@ -70,5 +70,3 @@ const verse: VerseApi = {
     });
   },
 };
-
-export default verse;

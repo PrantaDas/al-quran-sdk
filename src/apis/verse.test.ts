@@ -1,4 +1,4 @@
-import verse from './verse';
+import { verse } from "./verse";
 
 describe("Fetching verses by chapter number", () => {
     beforeEach(() => jest.clearAllMocks());

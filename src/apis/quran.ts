@@ -64,7 +64,7 @@ const quran: QuranApi = {
     });
   },
   getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse | AxiosError | Error> {
-    const uri = query ? `/quran/tafsirs/${tafsir_id}/info?${new URLSearchParams(query as URLSearchParams)}` : `/quran/tafsirs/${tafsir_id}/info`;
+    const uri = query ? `/quran/tafsirs/${tafsir_id}?${new URLSearchParams(query as URLSearchParams)}` : `/quran/tafsirs/${tafsir_id}`;
     return new Promise((resolve, reject) => {
       api.get(uri)
         .then(handleResponse(resolve))
@@ -88,3 +88,5 @@ const quran: QuranApi = {
     });
   },
 };
+
+export default quran;

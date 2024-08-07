@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import Api from "../api";
+import Api from "../req";
 import { ALLOWED_LANGUAGES, VerseApi, VerseQuery, VerseResponse } from "../types";
 import { handleError, handleResponse } from "../utils";
 

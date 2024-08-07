@@ -364,3 +364,138 @@ export interface VerseApi {
 	getSpecificVerseByVerseKey: (verse_key: string, query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
 	getRandomAyah: (query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
 };
+
+export interface QuranQuery {
+	chapter_number?: string;
+	juz_number?: string;
+	page_number?: string;
+	hizb_number?: string;
+	rub_el_hizb_number?: string;
+	verse_key?: string;
+};
+
+export interface QuranResponse {
+	verses: IndoPakVerse[];
+};
+
+export interface IndoPakVerse {
+	id: number;
+	verse_key: string;
+	text_indopak: string;
+};
+
+export interface UthmaniTajweedResponse {
+	verses: UthManiVerse[];
+};
+
+export interface UthManiVerse {
+	id: number;
+	verse_key: string;
+	text_uthmani_tajweed: string;
+};
+
+export interface UthmaniScriptResponse {
+	verses: UthmaniScript[];
+};
+
+export interface UthmaniScript {
+	id: number;
+	verse_key: string;
+	text_uthmani: string;
+};
+
+export interface UthmaniSimpleScriptResponse {
+	verses: UthmaniSimpleScript[];
+};
+
+export interface UthmaniSimpleScript {
+	id: number;
+	verse_key: string;
+	text_uthmani_simple: string;
+};
+
+export interface ImlaeiSimpleTextResponse {
+	verses: ImlaeiSimpleText[];
+};
+
+export interface ImlaeiSimpleText {
+	id: number;
+	verse_key: string;
+	text_imlaei: string;
+};
+
+export interface TranslationQuery {
+	fields?: string;
+	chapter_number?: string;
+	juz_number?: string;
+	page_number?: string;
+	hizb_number?: string;
+	rub_el_hizb_number?: string;
+	verse_key?: string;
+};
+
+export interface SingleTranslationResponse {
+	translations: Translation[];
+	meta: TranslationMeta;
+};
+
+export interface VerseTranslation {
+	resource_id: number;
+	text: string;
+};
+
+export interface TranslationMeta {
+	translation_name: string;
+	author_name: string;
+};
+
+export interface SingleTafsirResponse {
+	tafsirs: Tafsir[]
+	meta: TafsirMeta;
+};
+
+export interface SingleTafsir {
+	resource_id: number;
+	text: string;
+};
+
+export interface TafsirMeta {
+	tafsir_name: string;
+	author_name: string;
+};
+
+export interface GlyphCodesOfAyahV1Response {
+	verses: GlyphCodesOfAyahV1[];
+};
+
+export interface GlyphCodesOfAyahV1 {
+	id: number;
+	verse_key: string;
+	code_v1: string;
+	v1_page: number;
+};
+
+
+export interface GlyphCodesOfAyahV2Response {
+	verses: GlyphCodesOfAyahV2[];
+}
+
+export interface GlyphCodesOfAyahV2 {
+	id: number;
+	verse_key: string;
+	code_v2: string;
+	v2_page: number;
+};
+
+
+export interface QuranApi {
+	getIndoPakScriptOfAyah: (query?: QuranQuery) => Promise<QuranResponse | AxiosError | Error>;
+	getUthmaniTajweedScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniTajweedResponse | AxiosError | Error>;
+	getUthmaniScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniScriptResponse | AxiosError | Error>;
+	getUthmaniSimpleScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniSimpleScriptResponse | AxiosError | Error>;
+	getImlaeiSimpleTextOfAyah: (query?: QuranQuery) => Promise<ImlaeiSimpleTextResponse | AxiosError | Error>;
+	getASingleTranslation: (translation_id: string, query?: TranslationQuery) => Promise<SingleTranslationResponse | AxiosError | Error>;
+	getSingleTafsir: (tafsir_id: string, query?: TranslationQuery) => Promise<SingleTafsirResponse | AxiosError | Error>;
+	getGlyphCodesOfAyahV1: (query?: QuranQuery) => Promise<GlyphCodesOfAyahV1Response | AxiosError | Error>;
+	getGlyphCodesOfAyahV2: (query?: QuranQuery) => Promise<GlyphCodesOfAyahV2Response | AxiosError | Error>;
+};

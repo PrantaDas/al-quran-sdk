@@ -1,7 +1,13 @@
 import { AxiosError } from "axios";
 import url from "url";
-import Api from "../api";
-import { AudioApi, AudioQueryParams, IAudio, IListOfAllAudioOfAReciter, IRecitation, ISingleRecitation, IReciters, IAyahRecitationSpecificSurah, IAyahRecitationSpecificJuz, IAyahRecitationSpecificMadaniMushafPage, IAyahRecitationSpecificRubelHizb, IAyahRecitationSpecificHizb, IAyahRecitationSpecificAyah, ALLOWED_LANGUAGES } from "../types";
+import Api from "../req";
+import {
+    AudioApi, AudioQueryParams,
+    IAudio, IListOfAllAudioOfAReciter, IRecitation,
+    ISingleRecitation, IReciters, IAyahRecitationSpecificSurah, IAyahRecitationSpecificJuz,
+    IAyahRecitationSpecificMadaniMushafPage, IAyahRecitationSpecificRubelHizb,
+    IAyahRecitationSpecificHizb, IAyahRecitationSpecificAyah, ALLOWED_LANGUAGES
+} from "../types";
 import { handleError, handleResponse } from "../utils";
 
 const api = Api();
@@ -126,6 +132,5 @@ const audio: AudioApi = {
     }
 
 };
-
 
 export default audio;

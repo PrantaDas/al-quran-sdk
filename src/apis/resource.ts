@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import Api from "../api";
+import Api from "../req";
 import { ResourceApi, RecitaionInfo, TranslationInfo, TranslationResponse, TafsirsResponse, TafsirInfoResponse, RecitationStyleResponse, LanguageResponse, ChapterInfos, VerseMediaResponse, ALLOWED_LANGUAGES } from "../types";
 import { handleError, handleResponse } from "../utils";
 

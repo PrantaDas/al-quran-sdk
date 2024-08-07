@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import Api from "../api";
+import Api from "../req";
 import { JuzApi, JuzResponse } from "../types";
 import { handleError, handleResponse } from "../utils";
 

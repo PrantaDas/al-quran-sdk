@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import Api from "../api";
+import Api from "../req";
 import { ChapterApi, ListChapters, Chapter, ChapterInfo, ALLOWED_LANGUAGES } from "../types";
 import { handleError, handleResponse } from "../utils";
 

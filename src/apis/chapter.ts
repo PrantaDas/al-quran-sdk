@@ -1,9 +1,6 @@
-import { AxiosError } from "axios";
-import Api from "../req";
-import { ChapterApi, ListChapters, Chapter, ChapterInfo, ALLOWED_LANGUAGES } from "../types";
-import { handleError, handleResponse } from "../utils";
-
-const api = Api();
+import { LanguageValidationError } from "../errors";
+import { ALLOWED_LANGUAGES, Chapter, ChapterApi, ChapterInfo, ListChapters } from "../interfaces";
+import { apiWraper } from "../utils";
 
 
 export const chapter: ChapterApi = {
@@ -15,14 +12,10 @@ export const chapter: ChapterApi = {
      * @returns A promise that resolves to the list of chapters or rejects with an error.
      * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/list-chapters}
      */
-    listChapters(language = 'en'): Promise<ListChapters | Error | AxiosError> {
+    async listChapters(language = 'en'): Promise<ListChapters> {
         const isLanguageSupported = language && ALLOWED_LANGUAGES.has(language);
-        if (!isLanguageSupported) return Promise.reject(new Error("Provided language is not supported"));
-        return new Promise((resolve, reject) => {
-            api.get(`/chapters?${new URLSearchParams({ language })}`)
-                .then(handleResponse(resolve))
-                .catch(handleError(reject));
-        });
+        if (!isLanguageSupported) throw new LanguageValidationError("Provided language is not supported");
+        return await apiWraper<ListChapters>(`/chapters?${new URLSearchParams({ language })}`);
     },
 
     /**
@@ -33,13 +26,9 @@ export const chapter: ChapterApi = {
      * @returns A promise that resolves to the chapter details or rejects with an error.
      * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/get-chapter}
      */
-    getChapter(id: number, language = 'en'): Promise<Chapter | Error | AxiosError> {
-        if (language && !ALLOWED_LANGUAGES.has(language)) return Promise.reject(new Error("Provided language is not supported"));
-        return new Promise((resolve, reject) => {
-            api.get(`/chapters/${id}?${new URLSearchParams({ language })}`)
-                .then(handleResponse(resolve))
-                .catch(handleError(reject));
-        });
+    async getChapter(id: number, language = 'en'): Promise<Chapter> {
+        if (language && !ALLOWED_LANGUAGES.has(language)) throw new LanguageValidationError("Provided language is not supported");
+        return await apiWraper<Chapter>(`/chapters/${id}?${new URLSearchParams({ language })}`);
     },
 
     /**
@@ -50,13 +39,9 @@ export const chapter: ChapterApi = {
      * @returns A promise that resolves to the chapter information or rejects with an error.
      * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/info}
      */
-    getChapterInfo(chapter_id: number, language = 'en'): Promise<ChapterInfo | Error | AxiosError> {
-        if (language && !ALLOWED_LANGUAGES.has(language)) return Promise.reject(new Error("Provided language is not supported"));
-        return new Promise((resolve, reject) => {
-            api.get(`/chapters/${chapter_id}/info?${new URLSearchParams({ language })}`)
-                .then(handleResponse(resolve))
-                .catch(handleError(reject));
-        });
+    async getChapterInfo(chapter_id: number, language = 'en'): Promise<ChapterInfo> {
+        if (language && !ALLOWED_LANGUAGES.has(language)) throw new LanguageValidationError("Provided language is not supported");
+        return await apiWraper<ChapterInfo>(`/chapters/${chapter_id}/info?${new URLSearchParams({ language })}`);
     }
 };
 

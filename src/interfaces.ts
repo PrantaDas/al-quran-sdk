@@ -116,17 +116,17 @@ export interface IAyahRecitationSpecificAyah {
 };
 
 export interface AudioApi {
-	getChaptersAudioOfAReciter(id: number, chapter_number: number): Promise<IAudio | Error | AxiosError>;
-	getAllChaptersAudioOfAReciter(id: number): Promise<IListOfAllAudioOfAReciter | Error | AxiosError>;
-	getRecitations(language: string): Promise<IRecitation | Error | AxiosError>;
-	getAllAudioFilesofARecitation(recitation_id: number, query?: AudioQueryParams): Promise<ISingleRecitation | Error | AxiosError>;
-	getListOfChapterReciters(language: string): Promise<IReciters | Error | AxiosError>;
-	getAyahRecitationsForSpecificSurah(recitation_id: number, chapter_number: number): Promise<IAyahRecitationSpecificSurah | Error | AxiosError>;
-	getAyahRecitationsForSpecificJuz(recitation_id: number, juz_number: number): Promise<IAyahRecitationSpecificJuz | Error | AxiosError>;
-	getAyahRecitationForSpecificMadaniMushafPage(recitation_id: number, page_number: number): Promise<IAyahRecitationSpecificMadaniMushafPage | Error | AxiosError>;
-	getAyahRecitationForSpecificRubelHizb(recitation_id: number, rub_el_hizb_number: number): Promise<IAyahRecitationSpecificRubelHizb | Error | AxiosError>;
-	getAyahRecitationForSpecificHizb(recitation_id: number, hizb_number: number): Promise<IAyahRecitationSpecificHizb | Error | AxiosError>;
-	getAyahRecitationForSpecificAyah(recitation_id: number, ayah_key: string): Promise<IAyahRecitationSpecificAyah | Error | AxiosError>;
+	getChaptersAudioOfAReciter(id: number, chapter_number: number): Promise<IAudio>;
+	getAllChaptersAudioOfAReciter(id: number): Promise<IListOfAllAudioOfAReciter>;
+	getRecitations(language: string): Promise<IRecitation>;
+	getAllAudioFilesofARecitation(recitation_id: number, query?: AudioQueryParams): Promise<ISingleRecitation>;
+	getListOfChapterReciters(language: string): Promise<IReciters>;
+	getAyahRecitationsForSpecificSurah(recitation_id: number, chapter_number: number): Promise<IAyahRecitationSpecificSurah>;
+	getAyahRecitationsForSpecificJuz(recitation_id: number, juz_number: number): Promise<IAyahRecitationSpecificJuz>;
+	getAyahRecitationForSpecificMadaniMushafPage(recitation_id: number, page_number: number): Promise<IAyahRecitationSpecificMadaniMushafPage>;
+	getAyahRecitationForSpecificRubelHizb(recitation_id: number, rub_el_hizb_number: number): Promise<IAyahRecitationSpecificRubelHizb>;
+	getAyahRecitationForSpecificHizb(recitation_id: number, hizb_number: number): Promise<IAyahRecitationSpecificHizb>;
+	getAyahRecitationForSpecificAyah(recitation_id: number, ayah_key: string): Promise<IAyahRecitationSpecificAyah>;
 };
 
 export interface ChapterTranslate {
@@ -166,9 +166,9 @@ export interface ChapterInfoResponse {
 };
 
 export interface ChapterApi {
-	listChapters: (language?: string) => Promise<ListChapters | Error | AxiosError>;
-	getChapter: (id: number, language?: string) => Promise<Chapter | Error | AxiosError>;
-	getChapterInfo: (chapter_id: number, language?: string) => Promise<ChapterInfo | Error | AxiosError>;
+	listChapters: (language?: string) => Promise<ListChapters>;
+	getChapter: (id: number, language?: string) => Promise<Chapter>;
+	getChapterInfo: (chapter_id: number, language?: string) => Promise<ChapterInfo>;
 };
 
 
@@ -178,7 +178,7 @@ export interface JuzResponse {
 
 
 export interface JuzApi {
-	getAllJuzs: () => Promise<JuzResponse | Error | AxiosError>;
+	getAllJuzs: () => Promise<JuzResponse>;
 };
 
 export interface RecitaionInfo {
@@ -268,15 +268,15 @@ export interface VerseMediaResponse {
 };
 
 export interface ResourceApi {
-	getRecitationInfo: (recitation_id: string) => Promise<RecitaionInfo | Error | AxiosError>;
-	getTranslationInfo: (translation_id: string) => Promise<TranslationInfo | Error | AxiosError>;
-	getTranslations: (language?: string) => Promise<TranslationResponse | Error | AxiosError>;
-	getTafsirs: (language?: string) => Promise<TafsirsResponse | Error | AxiosError>;
-	getTafsirInfo: (tafsir_id: string) => Promise<TafsirInfoResponse | Error | AxiosError>;
-	getRecitationStyles: () => Promise<RecitationStyleResponse | Error | AxiosError>;
-	getLanguages: () => Promise<LanguageResponse | Error | AxiosError>;
-	getChapterInfos: () => Promise<ChapterInfos | Error | AxiosError>;
-	getVerseMedias: () => Promise<VerseMediaResponse | Error | AxiosError>;
+	getRecitationInfo: (recitation_id: string) => Promise<RecitaionInfo>;
+	getTranslationInfo: (translation_id: string) => Promise<TranslationInfo>;
+	getTranslations: (language?: string) => Promise<TranslationResponse>;
+	getTafsirs: (language?: string) => Promise<TafsirsResponse>;
+	getTafsirInfo: (tafsir_id: string) => Promise<TafsirInfoResponse>;
+	getRecitationStyles: () => Promise<RecitationStyleResponse>;
+	getLanguages: () => Promise<LanguageResponse>;
+	getChapterInfos: () => Promise<ChapterInfos>;
+	getVerseMedias: () => Promise<VerseMediaResponse>;
 };
 
 export interface VerseResponse {
@@ -356,13 +356,13 @@ export interface VerseQuery {
 
 
 export interface VerseApi {
-	getVerseByChapter: (chapter_number: string, query?: VerseQuery) => Promise<VerseResponse | AxiosError | Error>;
-	getVerseByPage: (page_number: string, query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
-	getVerseByJuz: (juz_number: string, query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
-	getVerseByHizbNumber: (hizb_number: string, query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
-	getVerseByRubElHizbNumber: (rub_el_hizb_number: string, query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
-	getSpecificVerseByVerseKey: (verse_key: string, query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
-	getRandomAyah: (query?: VerseQuery) => Promise<VerseResponse | Error | AxiosError>;
+	getVerseByChapter: (chapter_number: string, query?: VerseQuery) => Promise<VerseResponse>;
+	getVerseByPage: (page_number: string, query?: VerseQuery) => Promise<VerseResponse>;
+	getVerseByJuz: (juz_number: string, query?: VerseQuery) => Promise<VerseResponse>;
+	getVerseByHizbNumber: (hizb_number: string, query?: VerseQuery) => Promise<VerseResponse>;
+	getVerseByRubElHizbNumber: (rub_el_hizb_number: string, query?: VerseQuery) => Promise<VerseResponse>;
+	getSpecificVerseByVerseKey: (verse_key: string, query?: VerseQuery) => Promise<VerseResponse>;
+	getRandomAyah: (query?: VerseQuery) => Promise<VerseResponse>;
 };
 
 export interface QuranQuery {
@@ -489,13 +489,13 @@ export interface GlyphCodesOfAyahV2 {
 
 
 export interface QuranApi {
-	getIndoPakScriptOfAyah: (query?: QuranQuery) => Promise<QuranResponse | AxiosError | Error>;
-	getUthmaniTajweedScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniTajweedResponse | AxiosError | Error>;
-	getUthmaniScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniScriptResponse | AxiosError | Error>;
-	getUthmaniSimpleScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniSimpleScriptResponse | AxiosError | Error>;
-	getImlaeiSimpleTextOfAyah: (query?: QuranQuery) => Promise<ImlaeiSimpleTextResponse | AxiosError | Error>;
-	getASingleTranslation: (translation_id: string, query?: TranslationQuery) => Promise<SingleTranslationResponse | AxiosError | Error>;
-	getSingleTafsir: (tafsir_id: string, query?: TranslationQuery) => Promise<SingleTafsirResponse | AxiosError | Error>;
-	getGlyphCodesOfAyahV1: (query?: QuranQuery) => Promise<GlyphCodesOfAyahV1Response | AxiosError | Error>;
-	getGlyphCodesOfAyahV2: (query?: QuranQuery) => Promise<GlyphCodesOfAyahV2Response | AxiosError | Error>;
+	getIndoPakScriptOfAyah: (query?: QuranQuery) => Promise<QuranResponse>;
+	getUthmaniTajweedScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniTajweedResponse>;
+	getUthmaniScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniScriptResponse>;
+	getUthmaniSimpleScriptOfAyah: (query?: QuranQuery) => Promise<UthmaniSimpleScriptResponse>;
+	getImlaeiSimpleTextOfAyah: (query?: QuranQuery) => Promise<ImlaeiSimpleTextResponse>;
+	getASingleTranslation: (translation_id: string, query?: TranslationQuery) => Promise<SingleTranslationResponse>;
+	getSingleTafsir: (tafsir_id: string, query?: TranslationQuery) => Promise<SingleTafsirResponse>;
+	getGlyphCodesOfAyahV1: (query?: QuranQuery) => Promise<GlyphCodesOfAyahV1Response>;
+	getGlyphCodesOfAyahV2: (query?: QuranQuery) => Promise<GlyphCodesOfAyahV2Response>;
 };

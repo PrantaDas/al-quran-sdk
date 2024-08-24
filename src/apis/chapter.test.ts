@@ -1,4 +1,4 @@
-import { ListChapters } from "../types";
+import { ListChapters } from "../interfaces";
 import { chapter } from "./chapter";
 
 describe("Fetch all the chapter according to language", () => {

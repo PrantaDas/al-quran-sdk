@@ -1,7 +1,7 @@
 import Agent from "agentkeepalive";
 import axios, { AxiosInstance } from "axios";
 import config from "./config";
-import { CustomHeaders } from "./types";
+import { CustomHeaders } from "./interfaces";
 
 
 
@@ -49,7 +49,7 @@ const Api = (
     });
 
     axiosInstance.interceptors.response.use(
-        (response) => response,
+        (response) => response.data,
         (error) => Promise.reject(error.toJSON()),
     );
 

@@ -35,31 +35,31 @@ pnpm install al-quran-sdk
 
 Provides methods to fetch verses based on various criteria.
 
-#### `getVerseByChapter(chapter_number: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getVerseByChapter(chapter_number: string, query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches verses by chapter number.
 
-#### `getVerseByPage(page_number: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getVerseByPage(page_number: string, query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches verses by page number.
 
-#### `getVerseByJuz(juz_number: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getVerseByJuz(juz_number: string, query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches verses by Juz number.
 
-#### `getVerseByHizbNumber(hizb_number: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getVerseByHizbNumber(hizb_number: string, query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches verses by Hizb number.
 
-#### `getVerseByRubElHizbNumber(rub_el_hizb_number: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getVerseByRubElHizbNumber(rub_el_hizb_number: string, query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches verses by Rub el Hizb number.
 
-#### `getSpecificVerseByVerseKey(verse_key: string, query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getSpecificVerseByVerseKey(verse_key: string, query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches a specific verse by its key.
 
-#### `getRandomAyah(query?: VerseQuery): Promise<VerseResponse | AxiosError | Error>`
+#### `getRandomAyah(query?: VerseQuery): Promise<VerseResponse>`
 
 Fetches a random verse.
 
@@ -67,39 +67,39 @@ Fetches a random verse.
 
 Provides methods to fetch resource information.
 
-#### `getRecitationInfo(recitation_id: string): Promise<RecitationInfo | Error | AxiosError>`
+#### `getRecitationInfo(recitation_id: string): Promise<RecitationInfo>`
 
 Fetches information about a specific recitation.
 
-#### `getTranslationInfo(translation_id: string): Promise<TranslationInfo | Error | AxiosError>`
+#### `getTranslationInfo(translation_id: string): Promise<TranslationInfo>`
 
 Fetches information about a specific translation.
 
-#### `getTranslations(language: string = 'en'): Promise<TranslationResponse | Error | AxiosError>`
+#### `getTranslations(language: string = 'en'): Promise<TranslationResponse>`
 
 Fetches translations based on language.
 
-#### `getTafsirs(language: string = 'en'): Promise<TafsirsResponse | Error | AxiosError>`
+#### `getTafsirs(language: string = 'en'): Promise<TafsirsResponse>`
 
 Fetches Tafsirs based on language.
 
-#### `getTafsirInfo(tafsir_id: string): Promise<TafsirInfoResponse | Error | AxiosError>`
+#### `getTafsirInfo(tafsir_id: string): Promise<TafsirInfoResponse>`
 
 Fetches information about a specific Tafsir.
 
-#### `getRecitationStyles(): Promise<RecitationStyleResponse | Error | AxiosError>`
+#### `getRecitationStyles(): Promise<RecitationStyleResponse>`
 
 Fetches available recitation styles.
 
-#### `getLanguages(): Promise<LanguageResponse | Error | AxiosError>`
+#### `getLanguages(): Promise<LanguageResponse>`
 
 Fetches available languages.
 
-#### `getChapterInfos(): Promise<ChapterInfos | Error | AxiosError>`
+#### `getChapterInfos(): Promise<ChapterInfos>`
 
 Fetches information about chapters.
 
-#### `getVerseMedias(): Promise<VerseMediaResponse | Error | AxiosError>`
+#### `getVerseMedias(): Promise<VerseMediaResponse>`
 
 Fetches media associated with verses.
 
@@ -107,39 +107,39 @@ Fetches media associated with verses.
 
 Provides methods to fetch Quranic text in various scripts.
 
-#### `getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse | AxiosError | Error>`
+#### `getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse>`
 
 Fetches the Indo-Pak script of an Ayah.
 
-#### `getUthmaniTajweedScriptOfAyah(query?: QuranQuery): Promise<UthmaniTajweedResponse | AxiosError | Error>`
+#### `getUthmaniTajweedScriptOfAyah(query?: QuranQuery): Promise<UthmaniTajweedResponse>`
 
 Fetches the Uthmani Tajweed script of an Ayah.
 
-#### `getUthmaniScriptOfAyah(query?: QuranQuery): Promise<UthmaniScriptResponse | AxiosError | Error>`
+#### `getUthmaniScriptOfAyah(query?: QuranQuery): Promise<UthmaniScriptResponse>`
 
 Fetches the Uthmani script of an Ayah.
 
-#### `getUthmaniSimpleScriptOfAyah(query?: QuranQuery): Promise<UthmaniSimpleScriptResponse | AxiosError | Error>`
+#### `getUthmaniSimpleScriptOfAyah(query?: QuranQuery): Promise<UthmaniSimpleScriptResponse>`
 
 Fetches the Uthmani simple script of an Ayah.
 
-#### `getImlaeiSimpleTextOfAyah(query?: QuranQuery): Promise<ImlaeiSimpleTextResponse | AxiosError | Error>`
+#### `getImlaeiSimpleTextOfAyah(query?: QuranQuery): Promise<ImlaeiSimpleTextResponse>`
 
 Fetches the Imlaei simple text of an Ayah.
 
-#### `getASingleTranslation(translation_id: string, query?: TranslationQuery): Promise<SingleTranslationResponse | AxiosError | Error>`
+#### `getASingleTranslation(translation_id: string, query?: TranslationQuery): Promise<SingleTranslationResponse>`
 
 Fetches a single translation.
 
-#### `getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse | AxiosError | Error>`
+#### `getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse>`
 
 Fetches a single Tafsir.
 
-#### `getGlyphCodesOfAyahV1(query?: QuranQuery): Promise<GlyphCodesOfAyahV1Response | AxiosError | Error>`
+#### `getGlyphCodesOfAyahV1(query?: QuranQuery): Promise<GlyphCodesOfAyahV1Response>`
 
 Fetches glyph codes of an Ayah (version 1).
 
-#### `getGlyphCodesOfAyahV2(query?: QuranQuery): Promise<GlyphCodesOfAyahV2Response | AxiosError | Error>`
+#### `getGlyphCodesOfAyahV2(query?: QuranQuery): Promise<GlyphCodesOfAyahV2Response>`
 
 Fetches glyph codes of an Ayah (version 2).
 
@@ -147,7 +147,7 @@ Fetches glyph codes of an Ayah (version 2).
 
 Provides methods to fetch information about Juz.
 
-#### `getAllJuzs(): Promise<JuzResponse | Error | AxiosError>`
+#### `getAllJuzs(): Promise<JuzResponse>`
 
 Fetches all Juz.
 
@@ -155,15 +155,15 @@ Fetches all Juz.
 
 Provides methods to fetch chapter information.
 
-#### `listChapters(language = 'en'): Promise<ListChapters | Error | AxiosError>`
+#### `listChapters(language = 'en'): Promise<ListChapters>`
 
 Fetches a list of chapters based on language.
 
-#### `getChapter(id: number, language = 'en'): Promise<Chapter | Error | AxiosError>`
+#### `getChapter(id: number, language = 'en'): Promise<Chapter>`
 
 Fetches information about a specific chapter.
 
-#### `getChapterInfo(chapter_id: number, language = 'en'): Promise<ChapterInfo | Error | AxiosError>`
+#### `getChapterInfo(chapter_id: number, language = 'en'): Promise<ChapterInfo>`
 
 Fetches detailed information about a specific chapter.
 
@@ -171,47 +171,47 @@ Fetches detailed information about a specific chapter.
 
 Provides methods to fetch audio recitations and related data.
 
-#### `getChaptersAudioOfAReciter(id: number, chapter_number: number): Promise<IAudio | Error | AxiosError>`
+#### `getChaptersAudioOfAReciter(id: number, chapter_number: number): Promise<IAudio>`
 
 Fetches audio recordings of a specific chapter by a particular reciter.
 
-#### `getAllChaptersAudioOfAReciter(id: number): Promise<IListOfAllAudioOfAReciter | Error | AxiosError>`
+#### `getAllChaptersAudioOfAReciter(id: number): Promise<IListOfAllAudioOfAReciter>`
 
 Fetches all chapter recordings by a specific reciter.
 
-#### `getRecitations(language: string = 'en'): Promise<IRecitation | Error | AxiosError>`
+#### `getRecitations(language: string = 'en'): Promise<IRecitation>`
 
 Fetches recitations based on language.
 
-#### `getAllAudioFilesofARecitation(recitation_id: number, query?: AudioQueryParams): Promise<ISingleRecitation | Error | AxiosError>`
+#### `getAllAudioFilesofARecitation(recitation_id: number, query?: AudioQueryParams): Promise<ISingleRecitation>`
 
 Fetches all audio files of a specific recitation.
 
-#### `getListOfChapterReciters(language: string = 'en'): Promise<IReciters | Error | AxiosError>`
+#### `getListOfChapterReciters(language: string = 'en'): Promise<IReciters>`
 
 Fetches a list of chapter reciters based on language.
 
-#### `getAyahRecitationsForSpecificSurah(recitation_id: number, chapter_number: number): Promise<IAyahRecitationSpecificSurah | Error | AxiosError>`
+#### `getAyahRecitationsForSpecificSurah(recitation_id: number, chapter_number: number): Promise<IAyahRecitationSpecificSurah>`
 
 Fetches Ayah recitations for a specific Surah.
 
-#### `getAyahRecitationsForSpecificJuz(recitation_id: number, juz_number: number): Promise<IAyahRecitationSpecificJuz | Error | AxiosError>`
+#### `getAyahRecitationsForSpecificJuz(recitation_id: number, juz_number: number): Promise<IAyahRecitationSpecificJuz>`
 
 Fetches Ayah recitations for a specific Juz.
 
-#### `getAyahRecitationForSpecificMadaniMushafPage(recitation_id: number, page_number: number): Promise<IAyahRecitationSpecificMadaniMushafPage | Error | AxiosError>`
+#### `getAyahRecitationForSpecificMadaniMushafPage(recitation_id: number, page_number: number): Promise<IAyahRecitationSpecificMadaniMushafPage>`
 
 Fetches Ayah recitations for a specific Madani Mushaf page.
 
-#### `getAyahRecitationForSpecificRubelHizb(recitation_id: number, rub_el_hizb_number: number): Promise<IAyahRecitationSpecificRubelHizb | Error | AxiosError>`
+#### `getAyahRecitationForSpecificRubelHizb(recitation_id: number, rub_el_hizb_number: number): Promise<IAyahRecitationSpecificRubelHizb>`
 
 Fetches Ayah recitations for a specific Rub el Hizb.
 
-#### `getAyahRecitationForSpecificHizb(recitation_id: number, hizb_number: number): Promise<IAyahRecitationSpecificHizb | Error | AxiosError>`
+#### `getAyahRecitationForSpecificHizb(recitation_id: number, hizb_number: number): Promise<IAyahRecitationSpecificHizb>`
 
 Fetches Ayah recitations for a specific Hizb.
 
-#### `getAyahRecitationForSpecificAyah(recitation_id: number, ayah_key: string): Promise<IAyahRecitationSpecificAyah | Error | AxiosError>`
+#### `getAyahRecitationForSpecificAyah(recitation_id: number, ayah_key: string): Promise<IAyahRecitationSpecificAyah>`
 
 Fetches Ayah recitations for a specific Ayah.
 

@@ -1,4 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import Api from './req';
+
+const api = Api();
 
 /**
  * Handles the response from an Axios request.
@@ -21,3 +24,8 @@ export const handleResponse = <T>(
 export const handleError = (reject: (reason: Error | AxiosError) => void) =>
     (error: AxiosError) =>
         reject(error);
+
+
+export const apiWraper = async <T>(query: string): Promise<T> => {
+    return await api.get(query);
+};

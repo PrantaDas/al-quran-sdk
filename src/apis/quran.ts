@@ -1,18 +1,17 @@
-import { AxiosError } from "axios";
-import Api from "../req";
 import {
-  QuranQuery, QuranResponse, UthmaniTajweedResponse,
-  UthmaniScriptResponse,
-  UthmaniSimpleScriptResponse, ImlaeiSimpleTextResponse,
-  TranslationQuery, SingleTranslationResponse,
-  SingleTafsirResponse,
   GlyphCodesOfAyahV1Response,
   GlyphCodesOfAyahV2Response,
-  QuranApi
-} from "../types";
-import { handleError, handleResponse } from "../utils";
-
-const api = Api();
+  ImlaeiSimpleTextResponse,
+  QuranApi,
+  QuranQuery, QuranResponse,
+  SingleTafsirResponse,
+  SingleTranslationResponse,
+  TranslationQuery,
+  UthmaniScriptResponse,
+  UthmaniSimpleScriptResponse,
+  UthmaniTajweedResponse
+} from "../interfaces";
+import { apiWraper } from "../utils";
 
 export const quran: QuranApi = {
 
@@ -23,13 +22,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the Indo-Pak script response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-indopak}
    */
-  getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse | AxiosError | Error> {
+  async getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse> {
     const uri = query ? `/quran/verses/code_v1?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v1';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return apiWraper<QuranResponse>(uri);
   },
 
   /**
@@ -39,13 +34,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the Uthmani Tajweed script response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani-tajweed}
    */
-  getUthmaniTajweedScriptOfAyah(query?: QuranQuery): Promise<UthmaniTajweedResponse | AxiosError | Error> {
+  async getUthmaniTajweedScriptOfAyah(query?: QuranQuery): Promise<UthmaniTajweedResponse> {
     const uri = query ? `/quran/verses/uthmani_tajweed?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/uthmani_tajweed';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<UthmaniTajweedResponse>(uri);
   },
 
 
@@ -56,13 +47,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the Uthmani script response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani}
    */
-  getUthmaniScriptOfAyah(query?: QuranQuery): Promise<UthmaniScriptResponse | AxiosError | Error> {
+  async getUthmaniScriptOfAyah(query?: QuranQuery): Promise<UthmaniScriptResponse> {
     const uri = query ? `/quran/verses/uthmani?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/uthmani';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<UthmaniScriptResponse>(uri);
   },
 
   /**
@@ -72,13 +59,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the Uthmani simple script response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani-simple}
    */
-  getUthmaniSimpleScriptOfAyah(query?: QuranQuery): Promise<UthmaniSimpleScriptResponse | AxiosError | Error> {
+  async getUthmaniSimpleScriptOfAyah(query?: QuranQuery): Promise<UthmaniSimpleScriptResponse> {
     const uri = query ? `/quran/verses/uthmani_simple?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/uthmani_simple';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<UthmaniSimpleScriptResponse>(uri);
   },
 
   /**
@@ -88,13 +71,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the Imlaei simple text response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-imlaei}
    */
-  getImlaeiSimpleTextOfAyah(query?: QuranQuery): Promise<ImlaeiSimpleTextResponse | AxiosError | Error> {
+  async getImlaeiSimpleTextOfAyah(query?: QuranQuery): Promise<ImlaeiSimpleTextResponse> {
     const uri = query ? `/quran/verses/imlaei?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/imlaei';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<ImlaeiSimpleTextResponse>(uri);
   },
 
   /**
@@ -105,13 +84,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the single translation response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/translation}
    */
-  getASingleTranslation(translation_id: string, query?: TranslationQuery): Promise<SingleTranslationResponse | AxiosError | Error> {
+  async getASingleTranslation(translation_id: string, query?: TranslationQuery): Promise<SingleTranslationResponse> {
     const uri = query ? `/quran/translations/${translation_id}?${new URLSearchParams(query as URLSearchParams)}` : `/quran/translations/${translation_id}`;
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<SingleTranslationResponse>(uri);
   },
 
   /**
@@ -122,13 +97,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the single tafsir response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/tafsir}
    */
-  getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse | AxiosError | Error> {
+  async getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse> {
     const uri = query ? `/quran/tafsirs/${tafsir_id}?${new URLSearchParams(query as URLSearchParams)}` : `/quran/tafsirs/${tafsir_id}`;
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<SingleTafsirResponse>(uri);
   },
 
   /**
@@ -139,13 +110,9 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the single tafsir response or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-code-v-1}
    */
-  getGlyphCodesOfAyahV1(query?: QuranQuery): Promise<GlyphCodesOfAyahV1Response | AxiosError | Error> {
+  async getGlyphCodesOfAyahV1(query?: QuranQuery): Promise<GlyphCodesOfAyahV1Response> {
     const uri = query ? `/quran/verses/code_v1?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v1';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<GlyphCodesOfAyahV1Response>(uri);
   },
 
   /**
@@ -155,12 +122,8 @@ export const quran: QuranApi = {
    * @returns A promise that resolves to the glyph codes response (version 2) or rejects with an error.
    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-code-v-2}
    */
-  getGlyphCodesOfAyahV2(query?: QuranQuery): Promise<GlyphCodesOfAyahV2Response | AxiosError | Error> {
+  async getGlyphCodesOfAyahV2(query?: QuranQuery): Promise<GlyphCodesOfAyahV2Response> {
     const uri = query ? `/quran/verses/code_v2?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v2';
-    return new Promise((resolve, reject) => {
-      api.get(uri)
-        .then(handleResponse(resolve))
-        .catch(handleError(reject));
-    });
+    return await apiWraper<GlyphCodesOfAyahV2Response>(uri)
   },
 };

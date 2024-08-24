@@ -1,5 +1,5 @@
 {
-  "name": "al-quran-api",
+  "name": "al-quran-js",
   "version": "1.0.0",
   "description": "An API wrapper for Quran on top of quran.com",
   "main": "./dist/index.js",
@@ -20,7 +20,17 @@
     "test": "jest",
     "start": "ts-node src/index.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "al-quran",
+    "api",
+    "quran",
+    "quran.com",
+    "al-quran-api",
+    "verse",
+    "ayah",
+    "juz",
+    "quran-js"
+  ],
   "files": [
     "dist",
     "README.md",

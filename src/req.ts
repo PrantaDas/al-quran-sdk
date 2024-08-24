@@ -4,6 +4,15 @@ import config from "./config";
 import { CustomHeaders } from "./types";
 
 
+
+/**
+ * Creates an Axios instance with custom configuration for making HTTP requests.
+ *
+ * @param baseURL - The base URL for the API requests. Defaults to `config.API_BASE_URL`.
+ * @param token - An optional authorization token to be included in the headers of each request.
+ * @param customHeaders - An object representing custom headers to be included in each request. Defaults to an empty object.
+ * @returns An Axios instance configured with the specified parameters.
+ */
 const Api = (
     baseURL: string = config.API_BASE_URL,
     token?: string,

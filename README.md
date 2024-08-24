@@ -22,11 +22,11 @@ A TypeScript SDK for accessing various resources related to the Quran, including
 To install the SDK, use npm or yarn or pnpm:
 
 ```bash
-npm install Al-Quran-Js
+npm install al-quran-sdk
 # or
-yarn add Al-Quran-Js
+yarn add al-quran-sdk
 #  or
-pnpm install Al-Quran-Js
+pnpm install al-quran-sdk
 ```
 
 ## API Documentation

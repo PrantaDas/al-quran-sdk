@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PrantaDas/AL-Quran-API.git"
+    "url": "git+https://github.com/PrantaDas/al-quran-sdk.git"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

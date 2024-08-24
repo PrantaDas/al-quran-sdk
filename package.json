@@ -1,5 +1,5 @@
 {
-  "name": "al-quran-js",
+  "name": "al-quran-sdk",
   "version": "1.0.0",
   "description": "An API wrapper for Quran on top of quran.com",
   "main": "./dist/index.js",

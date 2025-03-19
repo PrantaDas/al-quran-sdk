@@ -1,5 +1,5 @@
 
-# al-quran-sdk
+# [al-quran-sdk](https://www.npmjs.com/package/al-quran-sdk)
 
 A TypeScript SDK for accessing various resources related to the Quran, including verses, chapters, audio recitations, translations, and more. This SDK provides a comprehensive set of APIs to interact with Quran data and resources efficiently.
 

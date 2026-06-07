@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/PrantaDas/al-quran-sdk/discussions
+    about: Have a question about usage or want to discuss an idea? Start a Discussion instead of opening an issue.
+  - name: Security Vulnerability
+    url: https://github.com/PrantaDas/al-quran-sdk/security/advisories/new
+    about: Found a security issue? Report it privately — do not open a public issue.

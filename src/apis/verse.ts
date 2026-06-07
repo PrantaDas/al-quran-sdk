@@ -1,104 +1,124 @@
 import { LanguageValidationError } from "../errors";
 import { ALLOWED_LANGUAGES, VerseApi, VerseQuery, VerseResponse } from "../interfaces";
-import { apiWraper, handleError, handleResponse } from "../utils";
+import { apiWraper, buildUri } from "../utils";
 
+/**
+ * Guards the optional `language` query parameter against the whitelist.
+ *
+ * The check is a no-op when `query` is undefined or when it omits `language`,
+ * which matches the original behaviour of accepting an entirely-optional
+ * query object.
+ *
+ * @throws {LanguageValidationError} If `query.language` is present but not allowed.
+ */
+const assertQueryLanguage = (query?: VerseQuery): void => {
+    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) {
+        throw new LanguageValidationError('Provided query language is not allowed');
+    }
+};
 
+/**
+ * Verse API.
+ *
+ * Each method fetches a paginated list of verses scoped to a different
+ * structural unit of the Quran (chapter, page, juz, hizb, rub el-hizb) and
+ * also supports point-lookup by verse key or a random pick.
+ */
 export const verse: VerseApi = {
+    /**
+     * Retrieves verses from a specific chapter (surah).
+     *
+     * @param chapter_number Chapter number, 1–114.
+     * @param query          Optional filters (language, translations, fields, etc.).
+     * @returns Paginated verses for the chapter.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verses-by-chapter-number
+     */
+    async getVerseByChapter(chapter_number: string, query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri(`/verses/by_chapter/${chapter_number}`, query));
+    },
 
-  /**
-   * Retrieves verses from a specific chapter of the Quran.
-   *
-   * @param chapter_number - The number of the chapter to retrieve verses from.
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing the verses or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verses-by-chapter-number}
-   */
-  async getVerseByChapter(chapter_number: string, query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/by_chapter/${chapter_number}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_chapter/${chapter_number}`;
-    return await apiWraper<VerseResponse>(uri);
-  },
+    /**
+     * Retrieves verses on a specific Mushaf page.
+     *
+     * @param page_number Mushaf page number, 1–604.
+     * @param query       Optional filters.
+     * @returns Paginated verses for the page.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verses-by-page-number
+     */
+    async getVerseByPage(page_number: string, query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri(`/verses/by_page/${page_number}`, query));
+    },
 
-  /**
-   * Retrieves verses from a specific page of the Quran.
-   *
-   * @param page_number - The number of the page to retrieve verses from.
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing the verses or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verses-by-page-number}
-   */
-  async getVerseByPage(page_number: string, query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/by_page/${page_number}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_page/${page_number}`;
-    return await apiWraper<VerseResponse>(uri);
-  },
+    /**
+     * Retrieves verses in a specific Juz.
+     *
+     * @param juz_number Juz number, 1–30.
+     * @param query      Optional filters.
+     * @returns Paginated verses for the juz.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verses-by-juz-number
+     */
+    async getVerseByJuz(juz_number: string, query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri(`/verses/by_juz/${juz_number}`, query));
+    },
 
-  /**
-   * Retrieves verses from a specific juz (section) of the Quran.
-   *
-   * @param juz_number - The number of the juz to retrieve verses from.
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing the verses or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verses-by-juz-number}
-   */
-  async getVerseByJuz(juz_number: string, query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/by_juz/${juz_number}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_juz/${juz_number}`;
-    return await apiWraper<VerseResponse>(uri);
-  },
+    /**
+     * Retrieves verses in a specific Hizb.
+     *
+     * @param hizb_number Hizb number, 1–60.
+     * @param query       Optional filters.
+     * @returns Paginated verses for the hizb.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verses-by-hizb-number
+     */
+    async getVerseByHizbNumber(hizb_number: string, query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri(`/verses/by_hizb/${hizb_number}`, query));
+    },
 
-  /**
-   * Retrieves verses from a specific hizb (half of a juz) of the Quran.
-   *
-   * @param hizb_number - The number of the hizb to retrieve verses from.
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing the verses or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verses-by-hizb-number}
-   */
-  async getVerseByHizbNumber(hizb_number: string, query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/by_hizb/${hizb_number}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_hizb/${hizb_number}`;
-    return await apiWraper<VerseResponse>(uri);
-  },
+    /**
+     * Retrieves verses in a specific Rub el-Hizb (quarter of a Hizb).
+     *
+     * @param rub_el_hizb_number Rub el-Hizb number, 1–240.
+     * @param query              Optional filters.
+     * @returns Paginated verses for the rub el-hizb.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verses-by-rub-el-hizb-number
+     */
+    async getVerseByRubElHizbNumber(rub_el_hizb_number: string, query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri(`/verses/by_rub/${rub_el_hizb_number}`, query));
+    },
 
-  /**
-   * Retrieves verses from a specific rub' el-hizb (quarter of a hizb) of the Quran.
-   *
-   * @param rub_el_hizb_number - The number of the rub' el-hizb to retrieve verses from.
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing the verses or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verses-by-rub-el-hizb-number}
-   */
-  async getVerseByRubElHizbNumber(rub_el_hizb_number: string, query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/by_rub/${rub_el_hizb_number}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_rub/${rub_el_hizb_number}`;
-    return await apiWraper<VerseResponse>(uri);
-  },
+    /**
+     * Retrieves a single verse by its key.
+     *
+     * @param verse_key Verse key in `chapter:verse` form (e.g. `"2:255"`).
+     * @param query     Optional filters.
+     * @returns Response containing the requested verse.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verses-by-verse-key
+     */
+    async getSpecificVerseByVerseKey(verse_key: string, query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri(`/verses/by_key/${verse_key}`, query));
+    },
 
-  /**
-   * Retrieves a specific verse using a verse key.
-   *
-   * @param verse_key - The key of the verse to retrieve (usually in the format "chapter:verse").
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing the verse or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verses-by-verse-key}
-   */
-  async getSpecificVerseByVerseKey(verse_key: string, query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/by_key/${verse_key}?${new URLSearchParams(query as URLSearchParams)}` : `/verses/by_key/${verse_key}`;
-    return await apiWraper<VerseResponse>(uri);
-  },
-
-  /**
-   * Retrieves a random verse (ayah) from the Quran.
-   *
-   * @param query - Optional query parameters for the request, including language.
-   * @returns A promise that resolves to the response containing a random verse or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/random-verse}
-   */
-  async getRandomAyah(query?: VerseQuery): Promise<VerseResponse> {
-    if (query?.language && !ALLOWED_LANGUAGES.has(query.language)) throw new LanguageValidationError('Provided query language is not allowed');
-    const uri = query ? `/verses/random?${new URLSearchParams(query as URLSearchParams)}` : `/verses/random`;
-    return await apiWraper<VerseResponse>(uri);
-  },
+    /**
+     * Retrieves a random verse from the Quran.
+     *
+     * @param query Optional filters.
+     * @returns Response containing a single random verse.
+     * @throws {LanguageValidationError} If `query.language` is not allowed.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/random-verse
+     */
+    async getRandomAyah(query?: VerseQuery): Promise<VerseResponse> {
+        assertQueryLanguage(query);
+        return apiWraper<VerseResponse>(buildUri('/verses/random', query));
+    },
 };

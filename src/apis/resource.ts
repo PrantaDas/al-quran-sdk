@@ -8,114 +8,124 @@ import {
     ResourceApi,
     TafsirInfoResponse,
     TafsirsResponse,
-    TranslationInfo, TranslationResponse,
-    VerseMediaResponse
+    TranslationInfo,
+    TranslationResponse,
+    VerseMediaResponse,
 } from "../interfaces";
-import { apiWraper } from "../utils";
+import { apiWraper, buildUri } from "../utils";
 
+/**
+ * Asserts that a language code is in {@link ALLOWED_LANGUAGES}.
+ *
+ * @throws {LanguageValidationError} If `language` is not in the whitelist.
+ */
+const assertLanguage = (language: string): void => {
+    if (!ALLOWED_LANGUAGES.has(language)) {
+        throw new LanguageValidationError("Provided language is not supported");
+    }
+};
 
+/**
+ * Resources API.
+ *
+ * Exposes metadata catalogues — recitations, translations, tafsirs,
+ * recitation styles, languages, chapter infos and verse media — that the
+ * other APIs reference by ID.
+ */
 export const resources: ResourceApi = {
-
     /**
-     * Retrieves information about a specific recitation.
+     * Retrieves descriptive info about a recitation resource.
      *
-     * @param recitation_id - The ID of the recitation to retrieve information for.
-     * @returns A promise that resolves to the recitation information or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/recitation-info}
+     * @param recitation_id Recitation resource ID.
+     * @throws {ResourceError} If `recitation_id` is missing.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/recitation-info
      */
     async getRecitationInfo(recitation_id: string): Promise<RecitaionInfo> {
         if (!recitation_id) throw new ResourceError('Recitation ID is required');
-        return await apiWraper<RecitaionInfo>(`/resources/recitations/${recitation_id}/info`);
+        return apiWraper<RecitaionInfo>(`/resources/recitations/${recitation_id}/info`);
     },
 
     /**
-     * Retrieves information about a specific translation.
+     * Retrieves descriptive info about a translation resource.
      *
-     * @param translation_id - The ID of the translation to retrieve information for.
-     * @returns A promise that resolves to the translation information or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/translation-info}
+     * @param translation_id Translation resource ID.
+     * @throws {ResourceError} If `translation_id` is missing.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/translation-info
      */
     async getTranslationInfo(translation_id: string): Promise<TranslationInfo> {
         if (!translation_id) throw new ResourceError('Translation ID is required');
-        return await apiWraper<TranslationInfo>(`/resources/translations/${translation_id}/info`);
+        return apiWraper<TranslationInfo>(`/resources/translations/${translation_id}/info`);
     },
 
     /**
-    * Retrieves a list of translations available in a specific language.
-    *
-    * @param language - The language code for the translations to retrieve. Defaults to 'en'.
-    * @returns A promise that resolves to the translation response or rejects with an error.
-    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/translations}
-    */
-    async getTranslations(language: string = 'en'): Promise<TranslationResponse> {
-        const isLanguageSupported = ALLOWED_LANGUAGES.has(language);
-        if (!isLanguageSupported) throw new LanguageValidationError("Provided language is not supported");
-        return await apiWraper<TranslationResponse>(`/resources/translations?${new URLSearchParams({ language })}`);
-    },
-
-    /**
-     * Retrieves a list of tafsirs available in a specific language.
+     * Lists translations available in the given language.
      *
-     * @param language - The language code for the tafsirs to retrieve. Defaults to 'en'.
-     * @returns A promise that resolves to the tafsirs response or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/tafsirs}
+     * @param language Two-letter ISO language code. Defaults to `'en'`.
+     * @throws {LanguageValidationError} If `language` is not in {@link ALLOWED_LANGUAGES}.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/translations
+     */
+    async getTranslations(language: string = 'en'): Promise<TranslationResponse> {
+        assertLanguage(language);
+        return apiWraper<TranslationResponse>(buildUri('/resources/translations', { language }));
+    },
+
+    /**
+     * Lists tafsirs available in the given language.
+     *
+     * @param language Two-letter ISO language code. Defaults to `'en'`.
+     * @throws {LanguageValidationError} If `language` is not in {@link ALLOWED_LANGUAGES}.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/tafsirs
      */
     async getTafsirs(language: string = 'en'): Promise<TafsirsResponse> {
-        const isLanguageSupported = ALLOWED_LANGUAGES.has(language);
-        if (!isLanguageSupported) throw new LanguageValidationError("Provided language is not supported");
-        return await apiWraper<TafsirsResponse>(`/resources/tafsirs?${new URLSearchParams({ language })}`);
+        assertLanguage(language);
+        return apiWraper<TafsirsResponse>(buildUri('/resources/tafsirs', { language }));
     },
 
     /**
-     * Retrieves information about a specific tafsir.
+     * Retrieves descriptive info about a tafsir resource.
      *
-     * @param tafsir_id - The ID of the tafsir to retrieve information for.
-     * @returns A promise that resolves to the tafsir information or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/tafsir-info}
+     * @param tafsir_id Tafsir resource ID.
+     * @throws {ResourceError} If `tafsir_id` is missing.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/tafsir-info
      */
     async getTafsirInfo(tafsir_id: string): Promise<TafsirInfoResponse> {
         if (!tafsir_id) throw new ResourceError('Tafsir ID is required');
-        return await apiWraper<TafsirInfoResponse>(`/resources/tafsirs/${tafsir_id}/info`);
+        return apiWraper<TafsirInfoResponse>(`/resources/tafsirs/${tafsir_id}/info`);
     },
 
     /**
-    * Retrieves a list of available recitation styles.
-    *
-    * @returns A promise that resolves to the recitation style response or rejects with an error.
-    * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/recitation-styles}
-    */
-    async getRecitationStyles(): Promise<RecitationStyleResponse> {
-        return await apiWraper<RecitationStyleResponse>('/resources/recitation_styles');
-    },
-
-
-    /**
-     * Retrieves a list of supported languages.
+     * Lists the available recitation styles (mujawwad, murattal, muallim).
      *
-     * @returns A promise that resolves to the language response or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/languages}
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/recitation-styles
+     */
+    async getRecitationStyles(): Promise<RecitationStyleResponse> {
+        return apiWraper<RecitationStyleResponse>('/resources/recitation_styles');
+    },
+
+    /**
+     * Lists every language supported by the Quran API.
+     *
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/languages
      */
     async getLanguages(): Promise<LanguageResponse> {
-        return await apiWraper<LanguageResponse>('/resources/languages');
+        return apiWraper<LanguageResponse>('/resources/languages');
     },
 
     /**
-     * Retrieves information about all chapters in the Quran.
+     * Retrieves the descriptive info entries for all chapters.
      *
-     * @returns A promise that resolves to the chapter information or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/chapter-info}
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/chapter-info
      */
     async getChapterInfos(): Promise<ChapterInfos> {
-        return await apiWraper<ChapterInfos>(`/resources/chapter_infos`);
+        return apiWraper<ChapterInfos>('/resources/chapter_infos');
     },
 
     /**
-     * Retrieves media related to verses in the Quran.
+     * Retrieves the catalogue of verse-related media (e.g. videos).
      *
-     * @returns A promise that resolves to the verse media response or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/verse-media}
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/verse-media
      */
     async getVerseMedias(): Promise<VerseMediaResponse> {
-        return apiWraper<VerseMediaResponse>(`/resources/verse_media`);
-    }
+        return apiWraper<VerseMediaResponse>('/resources/verse_media');
+    },
 };

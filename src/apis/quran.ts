@@ -1,129 +1,117 @@
 import {
-  GlyphCodesOfAyahV1Response,
-  GlyphCodesOfAyahV2Response,
-  ImlaeiSimpleTextResponse,
-  QuranApi,
-  QuranQuery, QuranResponse,
-  SingleTafsirResponse,
-  SingleTranslationResponse,
-  TranslationQuery,
-  UthmaniScriptResponse,
-  UthmaniSimpleScriptResponse,
-  UthmaniTajweedResponse
+    GlyphCodesOfAyahV1Response,
+    GlyphCodesOfAyahV2Response,
+    ImlaeiSimpleTextResponse,
+    QuranApi,
+    QuranQuery,
+    QuranResponse,
+    SingleTafsirResponse,
+    SingleTranslationResponse,
+    TranslationQuery,
+    UthmaniScriptResponse,
+    UthmaniSimpleScriptResponse,
+    UthmaniTajweedResponse,
 } from "../interfaces";
-import { apiWraper } from "../utils";
+import { apiWraper, buildUri } from "../utils";
 
+/**
+ * Quran scripts API.
+ *
+ * Exposes the `/quran/*` family of endpoints that render verse text in the
+ * various scripts and glyph encodings supported by quran.com (Uthmani,
+ * Uthmani Tajweed, Uthmani Simple, Indo-Pak, Imlaei, glyph codes v1/v2),
+ * along with the single-translation and single-tafsir lookups.
+ */
 export const quran: QuranApi = {
+    /**
+     * Retrieves verses rendered in Indo-Pak script.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-indopak
+     */
+    async getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse> {
+        return apiWraper<QuranResponse>(buildUri('/quran/verses/code_v1', query));
+    },
 
-  /**
-   * Retrieves the Indo-Pak script of a verse.
-   *
-   * @param query - Optional query parameters to filter the verses.
-   * @returns A promise that resolves to the Indo-Pak script response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-indopak}
-   */
-  async getIndoPakScriptOfAyah(query?: QuranQuery): Promise<QuranResponse> {
-    const uri = query ? `/quran/verses/code_v1?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v1';
-    return apiWraper<QuranResponse>(uri);
-  },
+    /**
+     * Retrieves verses rendered in Uthmani Tajweed script.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani-tajweed
+     */
+    async getUthmaniTajweedScriptOfAyah(query?: QuranQuery): Promise<UthmaniTajweedResponse> {
+        return apiWraper<UthmaniTajweedResponse>(buildUri('/quran/verses/uthmani_tajweed', query));
+    },
 
-  /**
-   * Retrieves the Uthmani Tajweed script of a verse.
-   *
-   * @param query - Optional query parameters to filter the verses.
-   * @returns A promise that resolves to the Uthmani Tajweed script response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani-tajweed}
-   */
-  async getUthmaniTajweedScriptOfAyah(query?: QuranQuery): Promise<UthmaniTajweedResponse> {
-    const uri = query ? `/quran/verses/uthmani_tajweed?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/uthmani_tajweed';
-    return await apiWraper<UthmaniTajweedResponse>(uri);
-  },
+    /**
+     * Retrieves verses rendered in plain Uthmani script.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani
+     */
+    async getUthmaniScriptOfAyah(query?: QuranQuery): Promise<UthmaniScriptResponse> {
+        return apiWraper<UthmaniScriptResponse>(buildUri('/quran/verses/uthmani', query));
+    },
 
+    /**
+     * Retrieves verses rendered in Uthmani Simple script.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani-simple
+     */
+    async getUthmaniSimpleScriptOfAyah(query?: QuranQuery): Promise<UthmaniSimpleScriptResponse> {
+        return apiWraper<UthmaniSimpleScriptResponse>(buildUri('/quran/verses/uthmani_simple', query));
+    },
 
-  /**
-   * Retrieves the Uthmani script of a verse.
-   *
-   * @param query - Optional query parameters to filter the verses.
-   * @returns A promise that resolves to the Uthmani script response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani}
-   */
-  async getUthmaniScriptOfAyah(query?: QuranQuery): Promise<UthmaniScriptResponse> {
-    const uri = query ? `/quran/verses/uthmani?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/uthmani';
-    return await apiWraper<UthmaniScriptResponse>(uri);
-  },
+    /**
+     * Retrieves verses rendered as Imlaei simple text.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-imlaei
+     */
+    async getImlaeiSimpleTextOfAyah(query?: QuranQuery): Promise<ImlaeiSimpleTextResponse> {
+        return apiWraper<ImlaeiSimpleTextResponse>(buildUri('/quran/verses/imlaei', query));
+    },
 
-  /**
-   * Retrieves the Uthmani simple script of a verse.
-   *
-   * @param query - Optional query parameters to filter the verses.
-   * @returns A promise that resolves to the Uthmani simple script response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-uthmani-simple}
-   */
-  async getUthmaniSimpleScriptOfAyah(query?: QuranQuery): Promise<UthmaniSimpleScriptResponse> {
-    const uri = query ? `/quran/verses/uthmani_simple?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/uthmani_simple';
-    return await apiWraper<UthmaniSimpleScriptResponse>(uri);
-  },
+    /**
+     * Retrieves a single translation by ID, scoped by the optional query.
+     *
+     * @param translation_id Translation resource ID.
+     * @param query          Optional filters (chapter, juz, verse_key, etc.).
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/translation
+     */
+    async getASingleTranslation(translation_id: string, query?: TranslationQuery): Promise<SingleTranslationResponse> {
+        return apiWraper<SingleTranslationResponse>(buildUri(`/quran/translations/${translation_id}`, query));
+    },
 
-  /**
-   * Retrieves the Imlaei simple text of a verse.
-   *
-   * @param query - Optional query parameters to filter the verses.
-   * @returns A promise that resolves to the Imlaei simple text response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-imlaei}
-   */
-  async getImlaeiSimpleTextOfAyah(query?: QuranQuery): Promise<ImlaeiSimpleTextResponse> {
-    const uri = query ? `/quran/verses/imlaei?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/imlaei';
-    return await apiWraper<ImlaeiSimpleTextResponse>(uri);
-  },
+    /**
+     * Retrieves a single tafsir by ID, scoped by the optional query.
+     *
+     * @param tafsir_id Tafsir resource ID.
+     * @param query     Optional filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/tafsir
+     */
+    async getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse> {
+        return apiWraper<SingleTafsirResponse>(buildUri(`/quran/tafsirs/${tafsir_id}`, query));
+    },
 
-  /**
-   * Retrieves a single translation of a verse.
-   *
-   * @param translation_id - The ID of the translation to retrieve.
-   * @param query - Optional query parameters to filter the translation.
-   * @returns A promise that resolves to the single translation response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/translation}
-   */
-  async getASingleTranslation(translation_id: string, query?: TranslationQuery): Promise<SingleTranslationResponse> {
-    const uri = query ? `/quran/translations/${translation_id}?${new URLSearchParams(query as URLSearchParams)}` : `/quran/translations/${translation_id}`;
-    return await apiWraper<SingleTranslationResponse>(uri);
-  },
+    /**
+     * Retrieves v1 glyph codes for the KFGQPC Uthmanic Hafs v1 font.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-code-v-1
+     */
+    async getGlyphCodesOfAyahV1(query?: QuranQuery): Promise<GlyphCodesOfAyahV1Response> {
+        return apiWraper<GlyphCodesOfAyahV1Response>(buildUri('/quran/verses/code_v1', query));
+    },
 
-  /**
-   * Retrieves a single tafsir of a verse.
-   *
-   * @param tafsir_id - The ID of the tafsir to retrieve.
-   * @param query - Optional query parameters to filter the tafsir.
-   * @returns A promise that resolves to the single tafsir response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/tafsir}
-   */
-  async getSingleTafsir(tafsir_id: string, query?: TranslationQuery): Promise<SingleTafsirResponse> {
-    const uri = query ? `/quran/tafsirs/${tafsir_id}?${new URLSearchParams(query as URLSearchParams)}` : `/quran/tafsirs/${tafsir_id}`;
-    return await apiWraper<SingleTafsirResponse>(uri);
-  },
-
-  /**
-   * Retrieves a single tafsir of a verse.
-   *
-   * @param tafsir_id - The ID of the tafsir to retrieve.
-   * @param query - Optional query parameters to filter the tafsir.
-   * @returns A promise that resolves to the single tafsir response or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-code-v-1}
-   */
-  async getGlyphCodesOfAyahV1(query?: QuranQuery): Promise<GlyphCodesOfAyahV1Response> {
-    const uri = query ? `/quran/verses/code_v1?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v1';
-    return await apiWraper<GlyphCodesOfAyahV1Response>(uri);
-  },
-
-  /**
-   * Retrieves the glyph codes (version 2) of a verse.
-   *
-   * @param query - Optional query parameters to filter the verses.
-   * @returns A promise that resolves to the glyph codes response (version 2) or rejects with an error.
-   * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-code-v-2}
-   */
-  async getGlyphCodesOfAyahV2(query?: QuranQuery): Promise<GlyphCodesOfAyahV2Response> {
-    const uri = query ? `/quran/verses/code_v2?${new URLSearchParams(query as URLSearchParams)}` : '/quran/verses/code_v2';
-    return await apiWraper<GlyphCodesOfAyahV2Response>(uri)
-  },
+    /**
+     * Retrieves v2 glyph codes for the KFGQPC Uthmanic Hafs v2 font.
+     *
+     * @param query Optional verse filters.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/quran-verses-code-v-2
+     */
+    async getGlyphCodesOfAyahV2(query?: QuranQuery): Promise<GlyphCodesOfAyahV2Response> {
+        return apiWraper<GlyphCodesOfAyahV2Response>(buildUri('/quran/verses/code_v2', query));
+    },
 };

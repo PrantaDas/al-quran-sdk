@@ -1,47 +1,63 @@
 import { LanguageValidationError } from "../errors";
 import { ALLOWED_LANGUAGES, Chapter, ChapterApi, ChapterInfo, ListChapters } from "../interfaces";
-import { apiWraper } from "../utils";
+import { apiWraper, buildUri } from "../utils";
 
-
-export const chapter: ChapterApi = {
-
-    /**
-     * Retrieves a list of all chapters in the Quran.
-     *
-     * @param language - The language code for the chapter names. Defaults to 'en'.
-     * @returns A promise that resolves to the list of chapters or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/list-chapters}
-     */
-    async listChapters(language = 'en'): Promise<ListChapters> {
-        const isLanguageSupported = language && ALLOWED_LANGUAGES.has(language);
-        if (!isLanguageSupported) throw new LanguageValidationError("Provided language is not supported");
-        return await apiWraper<ListChapters>(`/chapters?${new URLSearchParams({ language })}`);
-    },
-
-    /**
-     * Retrieves information about a specific chapter.
-     *
-     * @param id - The ID of the chapter to retrieve.
-     * @param language - The language code for the chapter information. Defaults to 'en'.
-     * @returns A promise that resolves to the chapter details or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/get-chapter}
-     */
-    async getChapter(id: number, language = 'en'): Promise<Chapter> {
-        if (language && !ALLOWED_LANGUAGES.has(language)) throw new LanguageValidationError("Provided language is not supported");
-        return await apiWraper<Chapter>(`/chapters/${id}?${new URLSearchParams({ language })}`);
-    },
-
-    /**
-     * Retrieves detailed information about a specific chapter.
-     *
-     * @param chapter_id - The ID of the chapter to retrieve information for.
-     * @param language - The language code for the chapter information. Defaults to 'en'.
-     * @returns A promise that resolves to the chapter information or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/info}
-     */
-    async getChapterInfo(chapter_id: number, language = 'en'): Promise<ChapterInfo> {
-        if (language && !ALLOWED_LANGUAGES.has(language)) throw new LanguageValidationError("Provided language is not supported");
-        return await apiWraper<ChapterInfo>(`/chapters/${chapter_id}/info?${new URLSearchParams({ language })}`);
+/**
+ * Asserts that a language code is in {@link ALLOWED_LANGUAGES}.
+ *
+ * @throws {LanguageValidationError} If `language` is not in the whitelist.
+ */
+const assertLanguage = (language: string): void => {
+    if (!ALLOWED_LANGUAGES.has(language)) {
+        throw new LanguageValidationError("Provided language is not supported");
     }
 };
 
+/**
+ * Chapter (surah) API.
+ *
+ * Endpoints that read chapter-level metadata. The `language` parameter is
+ * forwarded to the upstream API to control localised names and descriptions.
+ */
+export const chapter: ChapterApi = {
+    /**
+     * Lists all 114 chapters of the Quran.
+     *
+     * @param language Two-letter ISO language code for localised names. Defaults to `'en'`.
+     * @returns The list of chapters.
+     * @throws {LanguageValidationError} If `language` is not in {@link ALLOWED_LANGUAGES}.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/list-chapters
+     */
+    async listChapters(language: string = 'en'): Promise<ListChapters> {
+        assertLanguage(language);
+        return apiWraper<ListChapters>(buildUri('/chapters', { language }));
+    },
+
+    /**
+     * Retrieves a single chapter by ID.
+     *
+     * @param id       Chapter ID, 1–114.
+     * @param language Two-letter ISO language code for localised names. Defaults to `'en'`.
+     * @returns The chapter metadata.
+     * @throws {LanguageValidationError} If `language` is not in {@link ALLOWED_LANGUAGES}.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/get-chapter
+     */
+    async getChapter(id: number, language: string = 'en'): Promise<Chapter> {
+        assertLanguage(language);
+        return apiWraper<Chapter>(buildUri(`/chapters/${id}`, { language }));
+    },
+
+    /**
+     * Retrieves long-form descriptive information about a chapter.
+     *
+     * @param chapter_id Chapter ID, 1–114.
+     * @param language   Two-letter ISO language code. Defaults to `'en'`.
+     * @returns The chapter info payload.
+     * @throws {LanguageValidationError} If `language` is not in {@link ALLOWED_LANGUAGES}.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/info
+     */
+    async getChapterInfo(chapter_id: number, language: string = 'en'): Promise<ChapterInfo> {
+        assertLanguage(language);
+        return apiWraper<ChapterInfo>(buildUri(`/chapters/${chapter_id}/info`, { language }));
+    },
+};

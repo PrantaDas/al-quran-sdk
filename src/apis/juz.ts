@@ -1,17 +1,21 @@
 import { JuzApi, JuzResponse } from "../interfaces";
-import { apiWraper, handleError, handleResponse } from "../utils";
+import { apiWraper } from "../utils";
 
-
+/**
+ * Juz API.
+ *
+ * The Quran is traditionally split into 30 equal sections called *juz*.
+ * Only one endpoint is exposed today; the namespace exists so additional
+ * juz-related endpoints can be added without changing the public surface.
+ */
 export const juz: JuzApi = {
-
     /**
-     * Retrieves a list of all Juzs (sections) of the Quran.
+     * Lists every Juz in the Quran along with its boundary metadata.
      *
-     * @returns A promise that resolves to the list of Juzs or rejects with an error.
-     * @see {@link https://api-docs.quran.com/docs/quran.com_versioned/juzs}
+     * @returns The juz list.
+     * @see https://api-docs.quran.com/docs/quran.com_versioned/juzs
      */
-
     async getAllJuzs(): Promise<JuzResponse> {
-        return await apiWraper<JuzResponse>('/juzs');
+        return apiWraper<JuzResponse>('/juzs');
     },
 };

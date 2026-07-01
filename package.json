@@ -1,7 +1,8 @@
 {
   "name": "al-quran-sdk",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An API wrapper for Quran on top of quran.com",
+  "homepage": "https://prantadas.dev/docs/al-quran-sdk",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "typeRoots": [
@@ -18,7 +19,8 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "al-quran",
@@ -45,6 +47,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PrantaDas/al-quran-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PrantaDas/al-quran-sdk/issues"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

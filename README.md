@@ -11,6 +11,9 @@ Verses, chapters, recitations, translations, tafsirs, and scripts — all behind
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 [![Quran.com API](https://img.shields.io/badge/API-quran.com%20v4-green.svg?style=flat-square)](https://api-docs.quran.com/)
+[![Docs](https://img.shields.io/badge/docs-prantadas.dev-blue.svg?style=flat-square)](https://prantadas.dev/docs/al-quran-sdk)
+
+📖 **Full documentation:** [prantadas.dev/docs/al-quran-sdk](https://prantadas.dev/docs/al-quran-sdk)
 
 </div>
 
@@ -18,6 +21,7 @@ Verses, chapters, recitations, translations, tafsirs, and scripts — all behind
 
 ## Table of Contents
 
+- [Documentation](#documentation)
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -39,6 +43,16 @@ Verses, chapters, recitations, translations, tafsirs, and scripts — all behind
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 - [Disclaimer](#disclaimer)
+
+---
+
+## Documentation
+
+Full guides, API reference, and examples are hosted at:
+
+**➜ [https://prantadas.dev/docs/al-quran-sdk](https://prantadas.dev/docs/al-quran-sdk)**
+
+The sections below are a condensed reference; visit the docs site for the complete, searchable version.
 
 ---
 
